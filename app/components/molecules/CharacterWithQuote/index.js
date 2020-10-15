@@ -18,21 +18,15 @@ const CharacterImage = styled.Image`
 `;
 
 function CharacterWithQuote({ user }) {
+  console.log(user);
   return (
     <>
       <Result
         id="wednesday_lover"
         values={{
-          username: get(user, 'character') || 'character'
+          username: get(user, 'bank') || 'character'
         }}
       />
-      <Result id="because" />
-      <CharacterImage
-        resizeMode="contain"
-        testID="character-image"
-        source={{ uri: get(user, 'image') }}
-      />
-      <Result text={get(user, 'quote')} />
     </>
   );
 }

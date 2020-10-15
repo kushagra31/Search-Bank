@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Animated,
-  SafeAreaView,
-  StatusBar,
-  ActivityIndicator
-} from 'react-native';
+import { Animated, SafeAreaView, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { PropTypes } from 'prop-types';
@@ -21,15 +16,10 @@ import {
 import { exampleScreenActions } from './reducer';
 import LoaderComponent from '../../components/organisms/LoaderComponent';
 import SearchComponent from '../../components/organisms/SearchComponent';
-import SimpsonsLoveWednesday from '../../components/organisms/SimpsonsLoveWednesday';
 
-const ExampleScreen = ({
-  user,
-  userErrorMessage,
-  fetchUser,
-  userIsLoading
-}) => {
+const ExampleScreen = ({ user, userErrorMessage, fetchUser }) => {
   useEffect(() => {
+    console.log('a');
     requestFetchUser()();
   });
   const requestFetchUser = () => () => {
@@ -90,46 +80,37 @@ const ExampleScreen = ({
   ];
   return (
     <Container>
-      {userIsLoading ? (
-        <ActivityIndicator testID="loader" size="large" color="#0000ff" />
-      ) : (
-        <Animated.View>
-          <StatusBar barStyle="dark-content" />
-          <SafeAreaView>
-            <SearchComponent clampedScroll={clampedScroll} />
-            <SimpsonsLoveWednesday
-              user={user}
-              userErrorMessage={userErrorMessage}
-            />
-            <CustomButton onPress={requestFetchUser()} title="Refresh" />
-            <Animated.ScrollView
-              showsVerticalScrollIndicator={false}
-              style={{
-                margin: 20,
-                backgroundColor: 'white',
-                paddingTop: 55
-              }}
-              contentContainerStyle={{
-                display: 'flex',
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                justifyContent: 'space-around'
-              }}
-              onScroll={Animated.event(
-                [{ nativeEvent: { contentOffset: { y: scrollYValue } } }],
-                // { useNativeDriver: true },
-                () => {} // Optional async listener
-              )}
-              contentInsetAdjustmentBehavior="automatic"
-            >
-              {/* eslint-disable-next-line no-unused-vars */}
-              {array.map(item => (
-                <LoaderComponent />
-              ))}
-            </Animated.ScrollView>
-          </SafeAreaView>
-        </Animated.View>
-      )}
+      <Animated.View>
+        <StatusBar barStyle="dark-content" />
+        <SafeAreaView>
+          <SearchComponent clampedScroll={clampedScroll} />
+          <Animated.ScrollView
+            showsVerticalScrollIndicator={false}
+            style={{
+              margin: 20,
+              backgroundColor: 'white',
+              paddingTop: 55
+            }}
+            contentContainerStyle={{
+              display: 'flex',
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              justifyContent: 'space-around'
+            }}
+            onScroll={Animated.event(
+              [{ nativeEvent: { contentOffset: { y: scrollYValue } } }],
+              { useNativeDriver: true },
+              () => {} // Optional async listener
+            )}
+            contentInsetAdjustmentBehavior="automatic"
+          >
+            {/* eslint-disable-next-line no-unused-vars */}
+            {array.map(item => (
+              <LoaderComponent />
+            ))}
+          </Animated.ScrollView>
+        </SafeAreaView>
+      </Animated.View>
     </Container>
   );
 };

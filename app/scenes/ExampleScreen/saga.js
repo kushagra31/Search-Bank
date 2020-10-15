@@ -13,7 +13,7 @@ export function* fetchUser() {
   const response = yield call(getUser);
   if (response.ok) {
     const { data } = response;
-    yield put(exampleScreenActions.successFetchUser(get(data, '0')));
+    yield put(exampleScreenActions.successFetchUser(data));
   } else {
     yield put(
       exampleScreenActions.failureFetchUser(
