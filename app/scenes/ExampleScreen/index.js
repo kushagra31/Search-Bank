@@ -21,7 +21,7 @@ const ExampleScreen = ({ user, userErrorMessage, fetchUser }) => {
   useEffect(() => {
     console.log('a');
     requestFetchUser()();
-  });
+  }, []);
   const requestFetchUser = () => () => {
     fetchUser();
   };
@@ -79,39 +79,37 @@ const ExampleScreen = ({ user, userErrorMessage, fetchUser }) => {
     10
   ];
   return (
-    <Container>
-      <Animated.View>
-        <StatusBar barStyle="dark-content" />
-        <SafeAreaView>
-          <SearchComponent clampedScroll={clampedScroll} />
-          <Animated.ScrollView
-            showsVerticalScrollIndicator={false}
-            style={{
-              margin: 20,
-              backgroundColor: 'white',
-              paddingTop: 55
-            }}
-            contentContainerStyle={{
-              display: 'flex',
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-              justifyContent: 'space-around'
-            }}
-            onScroll={Animated.event(
-              [{ nativeEvent: { contentOffset: { y: scrollYValue } } }],
-              { useNativeDriver: true },
-              () => {} // Optional async listener
-            )}
-            contentInsetAdjustmentBehavior="automatic"
-          >
-            {/* eslint-disable-next-line no-unused-vars */}
-            {array.map(item => (
-              <LoaderComponent />
-            ))}
-          </Animated.ScrollView>
-        </SafeAreaView>
-      </Animated.View>
-    </Container>
+    <Animated.View>
+      <StatusBar barStyle="dark-content" />
+      <SafeAreaView>
+        <SearchComponent clampedScroll={clampedScroll} />
+        <Animated.ScrollView
+          showsVerticalScrollIndicator={false}
+          style={{
+            margin: 20,
+            backgroundColor: 'white',
+            paddingTop: 55
+          }}
+          contentContainerStyle={{
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-around'
+          }}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { y: scrollYValue } } }],
+            { useNativeDriver: true },
+            () => {} // Optional async listener
+          )}
+          contentInsetAdjustmentBehavior="automatic"
+        >
+          {/* eslint-disable-next-line no-unused-vars */}
+          {array.map(item => (
+            <LoaderComponent />
+          ))}
+        </Animated.ScrollView>
+      </SafeAreaView>
+    </Animated.View>
   );
 };
 ExampleScreen.propTypes = {
